@@ -1,0 +1,46 @@
+[project]
+name = "lane-mcp-auth"
+version = "0.1.4"
+description = "OAuth 2.1 resource server and consent gate for an MCP server behind Lane. FastMCP-friendly."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["mcp", "model-context-protocol", "oauth", "oauth2", "fastmcp", "rfc9728", "rfc8693"]
+dependencies = [
+  # JWT verification against a remote JWKS. The one thing this cannot do itself.
+  "pyjwt[crypto]>=2.8",
+  "httpx>=0.27",
+]
+
+[project.urls]
+Homepage = "https://github.com/Lane-Technologies-Inc/lane-mcp-auth"
+Source = "https://github.com/Lane-Technologies-Inc/lane-mcp-auth"
+
+[project.optional-dependencies]
+# The FastMCP helpers. The core does not import it, so a server on the raw
+# Python SDK -- or on nothing at all -- pays no cost for them.
+fastmcp = ["fastmcp>=2.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lane_mcp_auth"]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+  "pytest-asyncio>=0.23",
+  "ruff>=0.6",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+# `--strict-markers` turns an unregistered marker into an error. Without it two
+# test files carried `@pytest.mark.anyio` while actually running under
+# pytest-asyncio, and nothing said so.
+addopts = "--strict-markers"
