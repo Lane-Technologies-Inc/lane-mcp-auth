@@ -1,0 +1,81 @@
+{
+  "name": "@getonlane/mcp-auth",
+  "version": "0.3.1",
+  "type": "module",
+  "description": "Drop-in OAuth resource-server + connection gate for an MCP server fronted by Lane. Transport-agnostic core; adapters wrap it.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lane-Technologies-Inc/lane-mcp-auth.git"
+  },
+  "homepage": "https://github.com/Lane-Technologies-Inc/lane-mcp-auth#readme",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "oauth",
+    "oauth2",
+    "rfc9728",
+    "rfc8693",
+    "token-exchange",
+    "authorization",
+    "consent",
+    "jwt"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./mcp-sdk": {
+      "types": "./dist/mcp-sdk.d.ts",
+      "default": "./dist/mcp-sdk.js"
+    },
+    "./mcp-use": {
+      "types": "./dist/mcp-use.d.ts",
+      "default": "./dist/mcp-use.js"
+    },
+    "./dev": {
+      "types": "./dist/dev.d.ts",
+      "default": "./dist/dev.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "build:dist": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "tsc -p tsconfig.build.json",
+    "prepack": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "jose": "6.1.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.18",
+    "typescript": "^5.9.3",
+    "@types/node": "^22.0.0"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "AGENTS.md",
+    "LICENSE"
+  ]
+}
